@@ -4,6 +4,7 @@ var Koa=require('koa'),
     path=require('path'),
     bodyParser=require('koa-bodyparser'),
     DB=require('./module/db.js');
+    cors = require('koa2-cors');
 
 var app=new Koa();
 
@@ -18,8 +19,24 @@ render(app, {
 });
 //显示学员信息
 router.get('/',async (ctx)=>{
-    var result=await DB.find('user',{});
-ctx.body = result
+    let result=await DB.find('user',{});
+    ctx.body = {
+        code: 200,
+        msg: "success",
+        result:result
+    }
+    // await ctx.render('index',{
+    //     list:result
+    // });
+})
+
+router.get('/getUser',async (ctx)=>{
+    let result=await DB.find('user',{});
+    ctx.body = {
+        code: 200,
+        msg: "success",
+        result:result
+    }
     // await ctx.render('index',{
     //     list:result
     // });
@@ -32,7 +49,7 @@ router.get('/add',async (ctx)=>{
 
 
 //执行增加学员的操作
-router.post('/doAdd',async (ctx)=>{
+router.post('/addUser',async (ctx)=>{
 
     //获取表单提交的数据
 
@@ -43,7 +60,11 @@ router.post('/doAdd',async (ctx)=>{
     //console.log(data);
     try{
         if(data.result.ok){
-            ctx.redirect('/')
+            ctx.body = {
+                code: 200,
+                msg: "success",
+                result:{}
+            }
         }
     }catch(err){
         console.log(err);
@@ -74,22 +95,24 @@ router.get('/edit',async (ctx)=>{
 })
 
 
-router.post('/doEdit',async (ctx)=>{
+router.post('/editUser',async (ctx)=>{
     //通过get传过来的id来获取用户信息
     //console.log(ctx.request.body);
 
-    var id=ctx.request.body.id;
+    var id=ctx.request.body._id;
     var username=ctx.request.body.username;
-    var age=ctx.request.body.age;
-    var sex=ctx.request.body.sex;
 
     let data=await DB.update('user',{"_id":DB.getObjectId(id)},{
-        username,age,sex
+        username
     })
 
     try{
         if(data.result.ok){
-            ctx.redirect('/')
+            ctx.body = {
+                code: 200,
+                msg: "success",
+                result:{}
+            }
         }
     }catch(err){
         console.log(err);
@@ -101,20 +124,24 @@ router.post('/doEdit',async (ctx)=>{
 
 
 //删除学员
-router.get('/delete',async (ctx)=>{
+router.post('/delUser',async (ctx)=>{
 
-    let id=ctx.query.id;
+    let id=ctx.request.body._id;
 
     var data=await DB.remove('user',{"_id":DB.getObjectId(id)});
     console.log(data);
     if(data){
-        ctx.redirect('/')
+        ctx.body = {
+            code: 200,
+            msg: "success",
+            result:{}
+        }
     }
 
 })
 
-
-
+//测试jenkins自动化部署
+app.use(cors());
 app.use(router.routes());   /*启动路由*/
 app.use(router.allowedMethods());
 app.listen(3000);

@@ -21,9 +21,11 @@
     "koa": "^2.5.0",
     "koa-art-template": "^1.1.1",
     "koa-bodyparser": "^4.2.0",
-    "koa-router": "^7.4.0", //路由插件
-    "koa-session": "^5.8.1", // koa-session插件
-    "koa-static": "^4.0.2", //静态资源处理插件
-    "mongodb": "^3.0.4"
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.8.1",
+    "koa-static": "^4.0.2",
+    "koa2-cors": "^2.0.6",
+    "mongodb": "^3.0.4",
+    "mongoose": "^5.6.0"
   }
 }

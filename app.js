@@ -38,7 +38,7 @@ app.use(session(CONFIG, app));
 // 配置静态资源中间件
 app.use(static(__dirname+'/static'));
 
-//测试jenkins自动化部署
+//测试jenkins自动化部署1
 app.use(cors());
 // 使用路由
 router.use(index);

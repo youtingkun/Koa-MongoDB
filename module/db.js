@@ -14,9 +14,7 @@ const ObjectID = MongoDB.ObjectID;
 var Config=require('./config.js');
 
 class Db{
-
     static getInstance(){   /*1������  ���ʵ����ʵ��������������*/
-
         if(!Db.instance){
             Db.instance=new Db();
         }
@@ -24,7 +22,6 @@ class Db{
     }
 
     constructor(){
-
         this.dbClient=''; /*���� ��db����*/
         this.connect();   /*ʵ������ʱ����������ݿ�*/
 
@@ -35,7 +32,6 @@ class Db{
       return new Promise((resolve,reject)=>{
           if(!_that.dbClient){         /*1��������ݿ������ӵ�����*/
     
-        
               MongoClient.connect(Config.dbUrl,{useNewUrlParser:true}, (err,client)=>{
 
                   if(err){
@@ -133,7 +129,6 @@ class Db{
         })
     }
     getObjectId(id){    /*mongodb�����ѯ _id ���ַ���ת���ɶ���*/
-
         return new ObjectID(id);
     }
 }

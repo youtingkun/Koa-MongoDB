@@ -2,21 +2,16 @@
  * Created by Administrator on 2018/3/20 0020.
  */
 
-var router=require('koa-router')();
+let router=require('koa-router')();
+let admin=require('./admin/index.js');
+let api = require('./api/index.js')
 
 router.get('/',async (ctx)=>{
 
-        await ctx.render('default/index');
-})
-//注意 前台后后台匹配路由的写法不一样
-router.get('/case',(ctx)=>{
-
-    ctx.body='案例'
+    ctx.body='最大的首页';
 })
 
-router.get('/about',async (ctx)=>{
-
-    await ctx.render('default/about');
-})
+router.use('/admin',admin)
+router.use('/api',api)
 
 module.exports=router.routes();

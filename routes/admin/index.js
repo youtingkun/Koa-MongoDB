@@ -3,18 +3,15 @@
  */
 var router=require('koa-router')();
 
-var user=require('./admin/user.js');
+var user=require('./user.js');
 
-var focus=require('./admin/focus.js');
+var focus=require('./focus.js');
 
-var newscate=require('./admin/newscate.js');
+var newscate=require('./newscate.js');
 
 //配置admin的子路由  层级路由
-router.get('/',(ctx)=>{
-
-    ctx.body='后台管理系统首页'
-
-
+router.get('/',async (ctx)=>{
+    ctx.body='admin首页'
 })
 
 router.use('/user',user);

@@ -3,13 +3,11 @@
  */
 /*�����ļ�*/
 
+var app = {
+  dbUrl:
+    'mongodb://MGDBuser:MGDBpassword@47.111.249.97:27017/db?authSource=admin',
 
-var app={
-
-    dbUrl: 'mongodb://184.170.218.243:27017/',
-
-    dbName: 'koa'
-
+  dbName: 'koa'
 }
 
-module.exports=app;
+module.exports = app

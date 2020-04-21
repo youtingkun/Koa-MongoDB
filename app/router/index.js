@@ -61,6 +61,35 @@ router.get('/test_mongoose', (ctx, next) => {
   xiaoming.save()
 })
 
+router.get('/test_mongoose_findbyname', (ctx, next) => {
+  User.findByName('小明')
+})
+
+router.get('/test_dtff', (ctx, next) => {
+  User.findByName('张三', (res) => {
+    const somebody = res[0]
+    somebody.sayHello()
+  })
+})
+
+router.get('/test_find', async (ctx, next) => {
+  const res = await User.find({ name: '张三' })
+  console.log(res)
+})
+
+router.get('/test_findOneAndUpdate', async (ctx, next) => {
+  const res = await User.findOneAndUpdate(
+    { name: '张三' },
+    { name: 'jason bourne' }
+  )
+  console.log(res)
+})
+
+router.get('/test_findByIdAndRemove', async (ctx, next) => {
+  const res = await User.findByIdAndRemove('5e9de0dd44084d2bf8b9d227')
+  console.log(res)
+})
+
 router.use('/news', news.routes())
 
 module.exports = router

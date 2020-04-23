@@ -75,6 +75,20 @@ router.get('/test_dtff', (ctx, next) => {
 router.get('/test_find', async (ctx, next) => {
   const res = await User.find({ name: '张三' })
   console.log(res)
+  console.log(ctx)
+  ctx.response = {
+    // `data` 由服务器提供的响应, 需要进行解析才能获取
+    data: res,
+
+    // `status` 来自服务器响应的 HTTP 状态码
+    status: 200,
+
+    // `statusText` 来自服务器响应的 HTTP 状态信息
+    statusText: 'OK',
+
+    // `headers` 服务器响应的头
+    headers: {},
+  }
 })
 
 router.get('/test_findOneAndUpdate', async (ctx, next) => {

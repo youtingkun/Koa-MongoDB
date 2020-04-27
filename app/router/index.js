@@ -11,7 +11,7 @@ router.get('/test_get', (ctx, next) => {
   let query = ctx.request.query
   ctx.body = {
     url,
-    query,
+    query
   }
 })
 
@@ -42,7 +42,7 @@ router.get('/test_cookie', (ctx, next) => {
     maxAge: 10 * 60 * 1000, // cookie有效时长
     expires: new Date('2020-05-15'), // cookie失效时间
     httpOnly: false, // 是否只用于http请求中获取
-    overwrite: false, // 是否允许重写
+    overwrite: false // 是否允许重写
   })
   ctx.body = 'cookie is ok'
 })
@@ -66,7 +66,7 @@ router.get('/test_mongoose_findbyname', (ctx, next) => {
 })
 
 router.get('/test_dtff', (ctx, next) => {
-  User.findByName('张三', (res) => {
+  User.findByName('张三', res => {
     const somebody = res[0]
     somebody.sayHello()
   })
@@ -74,21 +74,20 @@ router.get('/test_dtff', (ctx, next) => {
 
 router.get('/test_find', async (ctx, next) => {
   const res = await User.find({ name: '张三' })
-  console.log(res)
-  console.log(ctx)
-  ctx.response = {
-    // `data` 由服务器提供的响应, 需要进行解析才能获取
-    data: res,
 
-    // `status` 来自服务器响应的 HTTP 状态码
-    status: 200,
-
-    // `statusText` 来自服务器响应的 HTTP 状态信息
-    statusText: 'OK',
-
-    // `headers` 服务器响应的头
-    headers: {},
+  let tempBody = {
+    data: res
   }
+  console.log(tempBody)
+
+  ctx.response.data = { data: res }
+  ctx.response.status = 200
+  ctx.response.statusText = 'OK'
+  ctx.response.headers = {}
+  ctx.response.body = res
+  console.log('数据库查询结果', res)
+  console.log('请求', ctx.request)
+  console.log('返回', ctx.response)
 })
 
 router.get('/test_findOneAndUpdate', async (ctx, next) => {
